@@ -1,0 +1,53 @@
+{% extends 'base.html' %} {% block title %} Home {% endblock title %} {% block
+body %}
+
+<div class="input-div">
+  <form action="/" method="POST">
+    <h3>To DO Title</h3>
+    <input type="text" name="title" />
+
+    <h3>To DO Description</h3>
+    <input type="text" name="description" />
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<div class="todo-list-div">
+  {% if allTodo|length == 0%}
+  <span class="warn">You are all set nothing to do now!</span>
+  {% else %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Time Added</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for todo in allTodo %}
+
+      <tr class="row">
+        <th scope="row">{{loop.index}}</th>
+        <td>{{todo.title}}</td>
+        <td>{{todo.description}}</td>
+        <td>{{todo.date_created}}</td>
+        <td>
+          <a
+            href="/delete/{{todo.sno}}"
+            class="action"
+            style="background-color: #222; color: #fff"
+            >Delete</a
+          >
+          <a href="/edit/{{todo.sno}}" class="action">Edit</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+</div>
+{% endblock body %}
